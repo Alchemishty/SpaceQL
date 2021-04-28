@@ -1,0 +1,10 @@
+query MissionList {
+    launches {
+        launches {
+            mission{
+                name
+                missionPatch(size: SMALL)
+            }
+        }
+    }
+}

@@ -10,7 +10,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.apollographql.apollo.coroutines.await
 import com.apollographql.apollo.exception.ApolloException
-import com.example.rocketreserver.LaunchListQuery
+import com.example.rocketreserver.MissionListQuery
 import com.example.spaceql.Model.Network.apolloClient
 import com.example.spaceql.databinding.FragmentMissionBinding
 
@@ -34,7 +34,7 @@ class MissionFragment : Fragment() {
             binding.missions.visibility = View.GONE
             binding.progressBar.visibility = View.VISIBLE
             val response = try {
-                apolloClient.query(LaunchListQuery()).await()
+                apolloClient.query(MissionListQuery()).await()
             } catch (e: ApolloException) {
                 Log.d("LaunchList", "Failure", e)
                 null

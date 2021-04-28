@@ -3,10 +3,10 @@ package com.example.spaceql
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.rocketreserver.LaunchListQuery
+import com.example.rocketreserver.RocketListQuery
 import com.example.spaceql.databinding.RocketItemBinding
 
-class RocketAdapter (val rockets: List<LaunchListQuery.Launch>) :
+class RocketAdapter (val rockets: List<RocketListQuery.Launch>) :
     RecyclerView.Adapter<RocketAdapter.ViewHolder>() {
 
     class ViewHolder(val binding: RocketItemBinding) : RecyclerView.ViewHolder(binding.root)

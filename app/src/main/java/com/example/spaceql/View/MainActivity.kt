@@ -32,7 +32,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
+        replaceFragment(MissionFragment())
         val bottomNav : BottomNavigationView = findViewById(R.id.bottom_nav_bar)
         bottomNav.setOnNavigationItemSelectedListener(navListener)
     }

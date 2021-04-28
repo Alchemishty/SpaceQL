@@ -4,10 +4,10 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import coil.api.load
-import com.example.rocketreserver.LaunchListQuery
+import com.example.rocketreserver.MissionListQuery
 import com.example.spaceql.databinding.MissionItemBinding
 
-class MissionAdapter(val missions: List<LaunchListQuery.Launch>) :
+class MissionAdapter(val missions: List<MissionListQuery.Launch>) :
     RecyclerView.Adapter<MissionAdapter.ViewHolder>() {
 
     class ViewHolder(val binding: MissionItemBinding) : RecyclerView.ViewHolder(binding.root)
@@ -18,7 +18,6 @@ class MissionAdapter(val missions: List<LaunchListQuery.Launch>) :
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding = MissionItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        println("Mission item called")
         return ViewHolder(binding)
     }
 
