@@ -6,17 +6,21 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.apollographql.apollo.coroutines.await
 import com.apollographql.apollo.exception.ApolloException
 import com.example.rocketreserver.MissionListQuery
 import com.example.spaceql.Model.Network.apolloClient
+import com.example.spaceql.ViewModel.LaunchViewModel
+import com.example.spaceql.ViewModel.MissionViewModel
 import com.example.spaceql.databinding.FragmentMissionBinding
 
 class MissionFragment : Fragment() {
 
     private lateinit var binding: FragmentMissionBinding
+    private lateinit var missionViewModel : MissionViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -30,24 +34,19 @@ class MissionFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        lifecycleScope.launchWhenResumed {
-            binding.missions.visibility = View.GONE
-            binding.progressBar.visibility = View.VISIBLE
-            val response = try {
-                apolloClient.query(MissionListQuery()).await()
-            } catch (e: ApolloException) {
-                Log.d("LaunchList", "Failure", e)
-                null
-            }
+        binding.missions.visibility = View.GONE
+        binding.progressBar.visibility = View.VISIBLE
 
-            val launches = response?.data?.launches?.launches?.filterNotNull()
-            if (launches != null && !response.hasErrors()) {
-                val adapter = MissionAdapter(launches)
-                binding.progressBar.visibility = View.GONE
-                binding.missions.visibility = View.VISIBLE
-                binding.missions.layoutManager = LinearLayoutManager(requireContext())
-                binding.missions.adapter = adapter
-            }
-        }
+
+        binding.missions.layoutManager = LinearLayoutManager(requireContext())
+
+        missionViewModel = ViewModelProvider(this).get(MissionViewModel::class.java)
+        missionViewModel.getLaunches()
+        missionViewModel.missionMutable.observe(viewLifecycleOwner, {
+            val adapter = MissionAdapter(it)
+            binding.progressBar.visibility = View.GONE
+            binding.missions.visibility = View.VISIBLE
+            binding.missions.adapter = adapter
+        })
     }
 }
