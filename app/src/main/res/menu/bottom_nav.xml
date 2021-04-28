@@ -2,6 +2,11 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
+        android:title="Missions"
+        android:id="@+id/nav_mission"
+        android:icon="@drawable/ic_mission"/>
+
+    <item
       android:id="@+id/nav_home"
       android:icon="@drawable/ic_baseline_home_24"
       android:title="Launch"/>
@@ -10,10 +15,5 @@
         android:title="Rockets"
         android:id="@+id/nav_rockets"
         android:icon="@drawable/ic_rocket"/>
-
-    <item
-        android:title="Missions"
-        android:id="@+id/nav_mission"
-        android:icon="@drawable/ic_mission"/>
 
 </menu>

@@ -1,4 +1,4 @@
-package com.example.spaceql
+package com.example.spaceql.View
 
 import android.os.Bundle
 import android.util.Log
@@ -12,18 +12,19 @@ import com.apollographql.apollo.coroutines.await
 import com.apollographql.apollo.exception.ApolloException
 import com.example.rocketreserver.LaunchListQuery
 import com.example.spaceql.Model.Network.apolloClient
-import com.example.spaceql.databinding.FragmentLaunchBinding
+import com.example.spaceql.RocketAdapter
+import com.example.spaceql.databinding.FragmentRocketBinding
 
-class CompanyFragment : Fragment() {
+class RocketFragment : Fragment() {
 
-    private lateinit var binding: FragmentLaunchBinding
+    private lateinit var binding: FragmentRocketBinding
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentLaunchBinding.inflate(inflater)
+        binding = FragmentRocketBinding.inflate(inflater)
         return binding.root
     }
 
@@ -31,8 +32,8 @@ class CompanyFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         lifecycleScope.launchWhenResumed {
-            binding.launches.visibility = View.GONE
-            binding.launchProgressBar.visibility = View.VISIBLE
+            binding.rockets.visibility = View.GONE
+            binding.rocketProgressBar.visibility = View.VISIBLE
             val response = try {
                 apolloClient.query(LaunchListQuery()).await()
             } catch (e: ApolloException) {
@@ -42,11 +43,11 @@ class CompanyFragment : Fragment() {
 
             val launches = response?.data?.launches?.launches?.filterNotNull()
             if (launches != null && !response.hasErrors()) {
-                val adapter = LaunchAdapter(launches)
-                binding.launchProgressBar.visibility = View.GONE
-                binding.launches.visibility = View.VISIBLE
-                binding.launches.layoutManager = LinearLayoutManager(requireContext())
-                binding.launches.adapter = adapter
+                val adapter = RocketAdapter(launches)
+                binding.rocketProgressBar.visibility = View.GONE
+                binding.rockets.visibility = View.VISIBLE
+                binding.rockets.layoutManager = LinearLayoutManager(requireContext())
+                binding.rockets.adapter = adapter
             }
         }
     }

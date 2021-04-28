@@ -3,6 +3,7 @@ package com.example.spaceql
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.fragment.app.Fragment
+import com.example.spaceql.View.RocketFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity() {
@@ -16,7 +17,12 @@ class MainActivity : AppCompatActivity() {
             }
             R.id.nav_home -> {
                 println("home pressed")
-                replaceFragment(CompanyFragment())
+                replaceFragment(LaunchFragment())
+                return@OnNavigationItemSelectedListener true
+            }
+            R.id.nav_rockets -> {
+                println("rockets pressed")
+                replaceFragment(RocketFragment())
                 return@OnNavigationItemSelectedListener true
             }
             else -> return@OnNavigationItemSelectedListener false
